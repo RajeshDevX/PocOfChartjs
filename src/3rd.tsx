@@ -37,7 +37,7 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
 
     // Detect if device is tablet or mobile
     const theme = useTheme();
-    const isMobileOrTablet = useMediaQuery(theme.breakpoints.down('md'));
+    const isMobileOrTablet = useMediaQuery(theme.breakpoints.down('lg'));
 
     return (
         <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', fontFamily: 'Nunito Sans' }}>
