@@ -1,13 +1,12 @@
-import * as React from "react";
-import { Box, Paper, Typography, LinearProgress, Stack } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Box, Typography, LinearProgress } from "@mui/material";
+// import { styled } from "@mui/material/styles";
 
-const Card = styled(Paper)(({ theme }) => ({
-    backgroundColor: "#fff",
-    borderRadius: "16px",
-    padding: theme.spacing(3),
-    boxShadow: "0px 2px 8px rgba(0,0,0,0.05)",
-}));
+// const Card = styled(Paper)(({ theme }) => ({
+//     backgroundColor: "#fff",
+//     borderRadius: "16px",
+//     padding: theme.spacing(3),
+//     boxShadow: "0px 2px 8px rgba(0,0,0,0.05)",
+// }));
 
 const QuarterRow = ({ label, actual, goal }: { label: string; actual: number; goal: number }) => {
     const percentage = goal > 0 ? Math.round((actual / goal) * 100) : 0;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,9 +15,9 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 // Actual label plugin
 const actualValueLabel = {
   id: "actualValueLabel",
-  afterDatasetsDraw(chart: Chart<any>, args: any, pluginOptions: any) {
+  afterDatasetsDraw(chart: Chart<any>, pluginOptions: any) {
     const { ctx } = chart;
-    const dataset = chart.data.datasets[0];
+    // const dataset = chart.data.datasets[0];
     const meta = chart.getDatasetMeta(0);
 
     ctx.save();
@@ -42,7 +42,7 @@ const goalYAxisLabel = {
   afterDraw(chart: Chart<any>) {
     const { ctx, chartArea, scales } = chart;
     const yAxis = scales.y;
-    const xAxis = scales.x;
+    // const xAxis = scales.x;
 
     // Get pixel for y=0
     const y0 = yAxis.getPixelForValue(0);
@@ -164,9 +164,9 @@ function App() {
 
           // Get bar element and chart canvas
           const dataPoint = tooltipModel.dataPoints[0].element;
-          const chart = context.chart;
-          const canvas = chart.canvas;
-          const canvasRect = canvas.getBoundingClientRect();
+          // const chart = context.chart;
+          // const canvas = chart.canvas;
+          // const canvasRect = canvas.getBoundingClientRect();
 
           // Calculate bar center position
           const barCenterX = dataPoint.x;
@@ -184,7 +184,7 @@ function App() {
         data,
       },
     },
-    onHover: (event: any, elements: any) => {
+    onHover: ( elements: any) => {
       setHoveredIndex(elements.length > 0 ? elements[0].index : null);
     },
     scales: {
