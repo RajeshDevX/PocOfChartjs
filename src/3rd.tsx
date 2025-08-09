@@ -36,7 +36,7 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
 
     const datasetData = data.map((item) => {
         const ratio = item.targetSum === 0 ? 0 : item.actualSum / item.targetSum;
-        const percent = Math.min(ratio, 1) * 99; // Cap at 99% to leave space for label
+        const percent = Math.min(ratio, 1) * 98; // Cap at 99% to leave space for label
         return percent < 40 ? 40 : percent; // Minimum bar width for visibility
     });
 

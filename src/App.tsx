@@ -61,7 +61,7 @@ const yearlyData: YearlyData[] = [
     { year: 2024, actualSum: 33000, targetSum: 45000 },
     { year: 2023, actualSum: 48000, targetSum: 45000 },
     { year: 2022, actualSum: 27000, targetSum: 45000 },
-    { year: 2021, actualSum: 500000000000000, targetSum: 45000 },
+    { year: 2021, actualSum: 500, targetSum: 45000 },
 ];
 
 

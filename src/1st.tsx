@@ -17,15 +17,12 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 // Custom label plugin for actual values
 const actualValueLabel = {
     id: "actualValueLabel",
-    afterDatasetsDraw(chart: Chart<any>, pluginOptions: any) {
+    afterDatasetsDraw(chart: Chart<any>, args: any, pluginOptions: any) {
         const { ctx } = chart;
         const meta = chart.getDatasetMeta(0);
 
         ctx.save();
         meta.data.forEach((bar: any, index: number) => {
-            if (pluginOptions.hoveredIndex === index) return;
-
-            // Add safety checks here
             if (!pluginOptions.data || !pluginOptions.data[index]) return;
 
             const actual = pluginOptions.data[index]?.actual;
@@ -35,11 +32,14 @@ const actualValueLabel = {
             ctx.fillStyle = "#555";
             ctx.font = "bold 12px 'Nunito Sans'";
             ctx.textAlign = "center";
+
+            // Position text at the top of the bar
             ctx.fillText(label, bar.x, bar.y - 10);
         });
         ctx.restore();
     },
 };
+
 
 // Plugin for "Goal" label under Y axis
 const goalYAxisLabel = {
@@ -73,7 +73,7 @@ interface Props {
 }
 
 const CustomPerformanceBarChart: React.FC<Props> = ({ data }) => {
-    const [hoveredIndex] = useState<number | null>(null);
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const width = window.innerWidth;
     const isTablet = width >= 600 && width < 1024;
     const performanceData = data.map((d) =>
