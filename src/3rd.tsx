@@ -1,21 +1,5 @@
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Tooltip
-} from 'chart.js';
-import type {
-    ChartOptions,
-    ChartData,
-    ChartDataset
-} from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, ChartDataLabels);
+import { Box, Typography, Tooltip } from '@mui/material';
 
 type YearlyData = {
     year: number;
@@ -23,104 +7,160 @@ type YearlyData = {
     targetSum: number;
 };
 
-const formatCurrency = (value: number): string => {
-    return `$${Math.floor(value).toLocaleString()}`;
-};
-
 interface PreviousYearsChartProps {
     data: YearlyData[];
 }
 
+const formatInteger = (value: number | null | undefined): string => {
+    if (typeof value !== 'number' || isNaN(value)) return '0';
+    return Math.round(value).toLocaleString();
+};
+
+const formatCurrency = (amount: number | null | undefined) => {
+    if (typeof amount !== 'number') return '$0';
+    return `$${formatInteger(amount)}`;
+};
+
+const getBarColor = (actual: number, goal: number) => {
+    if (goal === 0) return '#525252';
+    const ratio = actual / goal;
+    return ratio >= 0.8 ? '#525252' : '#525252'; // can expand logic later
+};
+
 const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
-    const labels = data.map((item) => item.year.toString());
-
-    const datasetData = data.map((item) => {
-        const ratio = item.targetSum === 0 ? 0 : item.actualSum / item.targetSum;
-        const percent = Math.min(ratio, 1) * 98; // Cap at 99% to leave space for label
-        return percent < 40 ? 40 : percent; // Minimum bar width for visibility
-    });
-
-    const dataset: ChartDataset<'bar', number[]> = {
-        data: datasetData,
-        backgroundColor: '#525252',
-        borderRadius: 5,
-        barThickness: 30,
-        categoryPercentage: 1.0, // 1.0 = full category width (no spacing)
-        barPercentage: 1.0, 
+    const getBarWidth = (actual: number, goal: number) => {
+        if (goal <= 0) return 0;
+        const ratio = actual / goal;
+        return Math.min(ratio * 100, 100);
     };
 
-    const chartData: ChartData<'bar', number[], string> = {
-        labels,
-        datasets: [dataset],
-    };
-
-    const options: ChartOptions<'bar'> = {
-        responsive: true,
-        indexAxis: 'y',
-        scales: {
-            x: {
-                display: false,
-                max: 100,
-            },
-            y: {
-                ticks: {
-                    font: {
-                        family: 'Nunito Sans',
-                        size: 12,
-                        weight: 'bold',
+    return (
+        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', fontFamily: 'Nunito Sans' }}>
+            <Box
+                sx={{
+                    flex: 1,
+                    overflowY: 'auto',
+                    maxHeight: '240px',
+                    // pb: 0.5,
+                    pr: 2,
+                    '&::-webkit-scrollbar': { width: '6px' },
+                    '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: '#c1c1c1',
+                        borderRadius: '20px',
                     },
-                    color: '#2B303466',
-                },
-                grid: {
-                    display: false,
-                },
-                border: {
-                    display: false,
-                },
+                    '&::-webkit-scrollbar-thumb:hover': { backgroundColor: '#a8a8a8' },
+                }}
+            >
+                {data.length > 0 ? (
+                    data.map(item => {
+                        const percentage = item.targetSum > 0
+                            ? Math.round((item.actualSum / item.targetSum) * 100).toFixed(1)
+                            : '0';
 
-            },
-        },
-        plugins: {
-            legend: {
-                display: false,
-            },
-            tooltip: {
-                enabled: false,
-            },
-            datalabels: {
-                anchor: (ctx) => {
-                    const val = ctx.dataset.data[ctx.dataIndex] as number;
-                    return val <= 2 ? 'end' : 'center';
-                },
-                align: (ctx) => {
-                    const val = ctx.dataset.data[ctx.dataIndex] as number;
-                    return val <= 2 ? 'end' : 'center';
-                },
-                offset: (ctx) => {
-                    const val = ctx.dataset.data[ctx.dataIndex] as number;
-                    return val <= 2 ? -5 : 0;
-                },
-                color: (ctx) => {
-                    const val = ctx.dataset.data[ctx.dataIndex] as number;
-                    return val <= 2 ? '#525252' : '#FFFFFF';
-                },
-                formatter: (_: any, context: any) => {
-                    const item = data[context.dataIndex];
-                    return `${formatCurrency(item.actualSum)} / ${formatCurrency(item.targetSum)}`;
-                },
-                font: {
-                    size: 12,
-                    weight: 'bold',
-                    family: 'Nunito Sans',
-                },
-                clip: false,
-            },
-        },
-    };
+                        return (
+                            <Box
+                                key={item.year}
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    mb: 1.5,
+                                    gap: 1,
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                {/* Year */}
+                                <Typography
+                                    sx={{
+                                        width: 50,
+                                        fontSize: '12px',
+                                        color: '#2B303466',
+                                        fontWeight: 800,
+                                        flexShrink: 0,
+                                        textAlign: 'right',
+                                    }}
+                                >
+                                    {item.year}
+                                </Typography>
 
-    return <div style={{ width: '100%', height: '100%' }}>
-        <Bar data={chartData} options={options} plugins={[ChartDataLabels]} />
-    </div>
+                                {/* Bar */}
+                                <Box sx={{ position: 'relative', flex: 1, minWidth: 0, height: 28 }}>
+                                    <Tooltip
+                                        arrow
+                                        placement="right"
+                                        title={
+                                            <Box sx={{ fontSize: '12px', fontFamily: 'Nunito Sans', color: '#333', fontWeight: 'bold' }}>
+                                                <div ><strong style={{ fontWeight: 700, color: '#767676', lineHeight: '9px', fontFamily: 'Nunito Sans' }}>Actual:</strong> {formatCurrency(Math.round(item.actualSum))}</div>
+                                                <div><strong style={{ fontWeight: 700, color: '#767676', lineHeight: '9px', fontFamily: 'Nunito Sans' }}>Actual %:</strong> {percentage}%</div>
+                                                <div><strong style={{ fontWeight: 700, color: '#767676', lineHeight: '9px', fontFamily: 'Nunito Sans' }}>Goal:</strong> {formatCurrency(item.targetSum)}</div>
+                                            </Box>
+                                        }
+                                        slotProps={{
+                                            tooltip: {
+                                                sx: {
+                                                    backgroundColor: 'rgba(255, 255, 255, 0.6)', // lighter transparency
+                                                    backdropFilter: 'blur(8px)', // frosted glass effect
+                                                    WebkitBackdropFilter: 'blur(8px)', // Safari support
+                                                    color: '#333',
+                                                    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                                                    borderRadius: '8px',
+                                                    padding: '8px 12px',
+                                                    border: '1px solid rgba(255,255,255,0.4)', // subtle border for glass look
+                                                }
+                                            },
+                                            arrow: {
+                                                sx: {
+                                                    color: 'rgba(255, 255, 255, 0.6)', // match tooltip background
+                                                    backdropFilter: 'blur(8px)',
+                                                    WebkitBackdropFilter: 'blur(8px)',
+                                                }
+                                            }
+                                        }}
+                                    >
+
+
+                                        <Box
+                                            sx={{
+                                                width: `${getBarWidth(item.actualSum, item.targetSum)}%`,
+                                                height: '100%',
+                                                backgroundColor: getBarColor(item.actualSum, item.targetSum),
+                                                borderRadius: '6px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                minWidth: 80,
+                                                overflow: 'hidden',
+                                                transition: 'width 0.3s ease-in-out',
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    color: '#FFFFFF',
+                                                    fontSize: '12px',
+                                                    fontWeight: 600,
+                                                    whiteSpace: 'nowrap',
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                    padding: '0 8px',
+                                                    fontFamily: 'Nunito Sans',
+                                                }}
+                                            >
+                                                {`${formatCurrency(item.actualSum)} / ${formatCurrency(item.targetSum)}`}
+                                            </Box>
+                                        </Box>
+                                    </Tooltip>
+
+                                </Box>
+                            </Box>
+                        );
+                    })
+                ) : (
+                    <Box sx={{ textAlign: 'center', py: 4, color: '#575757', fontSize: '14px', fontWeight: 500 }}>
+                        No data available.
+                    </Box>
+                )}
+            </Box>
+        </Box>
+    );
 };
 
 export default PreviousYearsChart;

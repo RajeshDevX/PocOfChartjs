@@ -18,6 +18,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 const actualValueLabel = {
     id: "actualValueLabel",
     afterDatasetsDraw(chart: Chart<any>, args: any, pluginOptions: any) {
+        const { } = args;
         const { ctx } = chart;
         const meta = chart.getDatasetMeta(0);
 
@@ -154,9 +155,9 @@ const CustomPerformanceBarChart: React.FC<Props> = ({ data }) => {
                             </div>
                             <div style="font-weight:700;color:#767676;line-height:9px;font-family:'Nunito Sans';">
                                 ${actual && goal
-                                    ? `Actual %: ${Math.round((actual / goal) * 100)}%`
-                                    : "Insufficient data"
-                                }
+                            ? `Actual %: ${Math.round((actual / goal) * 100)}%`
+                            : "Insufficient data"
+                        }
                             </div>
                         </div>
                     `;
@@ -215,9 +216,9 @@ const CustomPerformanceBarChart: React.FC<Props> = ({ data }) => {
 
     return (
         <>
-            <Bar 
-                data={chartData} 
-                options={options} 
+            <Bar
+                data={chartData}
+                options={options}
                 plugins={[actualValueLabel, goalYAxisLabel]} // Pass plugins here instead
                 style={{ height: '100%', width: '100%' }}
             />

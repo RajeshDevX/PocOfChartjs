@@ -62,6 +62,10 @@ const yearlyData: YearlyData[] = [
     { year: 2023, actualSum: 48000, targetSum: 45000 },
     { year: 2022, actualSum: 27000, targetSum: 45000 },
     { year: 2021, actualSum: 500, targetSum: 45000 },
+    { year: 2020, actualSum: 500000, targetSum: 450000 },
+    { year: 2019, actualSum: 0, targetSum: 45000 },
+    { year: 2018, actualSum: 0, targetSum: 45000 },
+    { year: 2017, actualSum: 0, targetSum: 45000 },
 ];
 
 
@@ -70,8 +74,6 @@ export default function ColumnLayoutInsideGrid() {
     return (
         <Box sx={{ flexGrow: 1, padding: 2 }}>
             <Grid container spacing={4}>
-
-                {/* Left big box with Bar chart */}
                 <Grid size={{ xs: 12, lg: 8 }} >
                     <Item sx={{ height: '100%', backgroundColor: '#FFFFFF', borderRadius: '20px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', flexDirection: 'column', padding: 2, paddingBottom: 4 }}>
                         <Typography sx={{ mb: 6, mt: 2, alignSelf: 'flex-start', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', fontFamily: "'Nunito Sans'", color: '#202224', lineHeight: '20px' }} >
@@ -97,7 +99,7 @@ export default function ColumnLayoutInsideGrid() {
                         >
                             <Box
                                 sx={{
-                                    minWidth: '1024px',
+                                    minWidth: '1000px',
                                     height: {
                                         xs: 'auto',
                                         sm: '340px',
@@ -140,71 +142,67 @@ export default function ColumnLayoutInsideGrid() {
                             </Item>
                         </Grid>
                         <Grid size={12}>
-
-                            <Item sx={{ height: '323px', backgroundColor: '#FFFFFF', borderRadius: '20px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', flexDirection: 'column', padding: 2 }}>
-
-                                <Box sx={{
+                            <Item
+                                sx={{
+                                    height: 323,
+                                    backgroundColor: '#FFFFFF',
+                                    borderRadius: '20px',
+                                    boxSizing: 'border-box',
+                                    overflow: 'hidden',
                                     display: 'flex',
-                                    alignItems: 'center',
-                                    flexWrap: 'wrap', alignSelf: 'flex-start', textAlign: 'left', mt: 2,
-                                }}>
-                                    <Typography sx={{
-                                        fontSize: {
-                                            xs: '18px',
-                                            lg: '24px',
-                                            xl: '24px',
-                                        },
-                                        fontWeight: 'bold',
-                                        color: '#202224',
-                                        margin: '0 0 5px 0',
-                                        lineHeight: '20px',
-                                        fontFamily: 'Nunito Sans',
-                                        paddingLeft: '10px',
-                                        paddingRight: '5px',
-
-                                    }}>
+                                    flexDirection: 'column',
+                                    padding: 2,
+                                }}
+                            >
+                                {/* Header */}
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        flexWrap: 'wrap',
+                                        alignSelf: 'flex-start',
+                                        mt: 2,
+                                    }}
+                                >
+                                    <Typography
+                                        sx={{
+                                            fontSize: { xs: '18px', lg: '24px' },
+                                            fontWeight: 'bold',
+                                            color: '#202224',
+                                            lineHeight: '20px',
+                                            fontFamily: 'Nunito Sans',
+                                            px: '10px',
+                                            mb: '5px',
+                                            
+                                        }}
+                                    >
                                         Previous Years
                                     </Typography>
-                                    <Typography sx={{
-                                        fontSize: {
-                                            xs: '12px',
-                                            lg: '12px',
-                                            xl: '12px',
-                                        },
-                                        color: '#7D7D7D',
-                                        marginLeft: '5px',
-                                        lineHeight: '20px',
-
-                                    }}>
+                                    <Typography
+                                        sx={{
+                                            fontSize: '12px',
+                                            color: '#7D7D7D',
+                                            ml: '5px',
+                                            lineHeight: '20px',
+                                        }}
+                                    >
                                         (Actual vs Goal)
                                     </Typography>
                                 </Box>
+
+                                {/* Chart */}
                                 <Box
                                     sx={{
-                                        height: '100%',
+                                        flex: 1,
                                         width: '100%',
                                         position: 'relative',
-                                        flex: 1,
-                                        flexGrow: 1,
-                                        overflowY: 'auto',
-                                        overflowX: 'hidden',
-                                        marginY: '10px',
-                                        '&::-webkit-scrollbar': {
-                                            width: '6px',
-                                        },
-                                        '&::-webkit-scrollbar-thumb': {
-                                            backgroundColor: '#c1c1c1',
-                                            borderRadius: '20px',
-                                        },
-                                        '&::-webkit-scrollbar-thumb:hover': {
-                                            backgroundColor: '#a8a8a8',
-                                        },
+                                        my: '10px',
                                     }}
                                 >
-
-                                    <PreviousYearsChart data={yearlyData} />
+                                    <PreviousYearsChart data={yearlyData} /> {/* ✅ new clear name */}
                                 </Box>
                             </Item>
+
                         </Grid>
                     </Stack>
                 </Grid>
