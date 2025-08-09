@@ -73,7 +73,7 @@ interface Props {
 }
 
 const CustomPerformanceBarChart: React.FC<Props> = ({ data }) => {
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const [hoveredIndex] = useState<number | null>(null);
     const width = window.innerWidth;
     const isTablet = width >= 600 && width < 1024;
     const performanceData = data.map((d) =>
