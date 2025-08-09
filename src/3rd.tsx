@@ -81,7 +81,7 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
                                         color: '#2B303466',
                                         fontWeight: 800,
                                         flexShrink: 0,
-                                        textAlign: 'right',
+                                        // textAlign: 'left',
                                     }}
                                 >
                                     {item.year}
