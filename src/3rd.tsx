@@ -41,7 +41,6 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
                     flex: 1,
                     overflowY: 'auto',
                     maxHeight: '240px',
-                    // pb: 0.5,
                     pr: 2,
                     '&::-webkit-scrollbar': { width: '6px' },
                     '&::-webkit-scrollbar-thumb': {
@@ -53,10 +52,10 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
             >
                 {data.length > 0 ? (
                     data.map(item => {
-                        const percentage = item.targetSum > 0
-                        ? String(Math.round((item.actualSum / item.targetSum) * 100))
-                        : '0';
-                    
+                        const percentage =
+                            item.targetSum > 0
+                                ? String(Math.round((item.actualSum / item.targetSum) * 100))
+                                : '0';
 
                         return (
                             <Box
@@ -88,37 +87,43 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
                                     <Tooltip
                                         arrow
                                         placement="right"
+                                        enterTouchDelay={0}        // Show instantly on tap (mobile/tablet)
+                                        leaveTouchDelay={3000}     // Stay visible for 3s after tap
                                         title={
                                             <Box sx={{ fontSize: '12px', fontFamily: 'Nunito Sans', color: '#333', fontWeight: 'bold' }}>
-                                                <div ><strong style={{ fontWeight: 700, color: '#767676', lineHeight: '9px', fontFamily: 'Nunito Sans' }}>Actual:</strong> {formatCurrency(Math.round(item.actualSum))}</div>
-                                                <div><strong style={{ fontWeight: 700, color: '#767676', lineHeight: '9px', fontFamily: 'Nunito Sans' }}>Actual %:</strong> {percentage}%</div>
-                                                <div><strong style={{ fontWeight: 700, color: '#767676', lineHeight: '9px', fontFamily: 'Nunito Sans' }}>Goal:</strong> {formatCurrency(item.targetSum)}</div>
+                                                <div>
+                                                    <strong style={{ fontWeight: 700, color: '#767676', lineHeight: '9px' }}>Actual:</strong> {formatCurrency(Math.round(item.actualSum))}
+                                                </div>
+                                                <div>
+                                                    <strong style={{ fontWeight: 700, color: '#767676', lineHeight: '9px' }}>Actual %:</strong> {percentage}%
+                                                </div>
+                                                <div>
+                                                    <strong style={{ fontWeight: 700, color: '#767676', lineHeight: '9px' }}>Goal:</strong> {formatCurrency(item.targetSum)}
+                                                </div>
                                             </Box>
                                         }
                                         slotProps={{
                                             tooltip: {
                                                 sx: {
-                                                    backgroundColor: 'rgba(255, 255, 255, 0.6)', // lighter transparency
-                                                    backdropFilter: 'blur(8px)', // frosted glass effect
-                                                    WebkitBackdropFilter: 'blur(8px)', // Safari support
+                                                    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                                                    backdropFilter: 'blur(8px)',
+                                                    WebkitBackdropFilter: 'blur(8px)',
                                                     color: '#333',
                                                     boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
                                                     borderRadius: '8px',
                                                     padding: '8px 12px',
-                                                    border: '1px solid rgba(255,255,255,0.4)', // subtle border for glass look
+                                                    border: '1px solid rgba(255,255,255,0.4)',
                                                 }
                                             },
                                             arrow: {
                                                 sx: {
-                                                    color: 'rgba(255, 255, 255, 0.6)', // match tooltip background
+                                                    color: 'rgba(255, 255, 255, 0.6)',
                                                     backdropFilter: 'blur(8px)',
                                                     WebkitBackdropFilter: 'blur(8px)',
                                                 }
                                             }
                                         }}
                                     >
-
-
                                         <Box
                                             sx={{
                                                 width: `${getBarWidth(item.actualSum, item.targetSum)}%`,
@@ -149,7 +154,6 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
                                             </Box>
                                         </Box>
                                     </Tooltip>
-
                                 </Box>
                             </Box>
                         );
