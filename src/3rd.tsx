@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Typography, Tooltip } from '@mui/material';
+import { Box, Typography, Tooltip, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 type YearlyData = {
     year: number;
@@ -33,6 +34,10 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
         const ratio = actual / goal;
         return Math.min(ratio * 100, 100);
     };
+
+    // Detect if device is tablet or mobile
+    const theme = useTheme();
+    const isMobileOrTablet = useMediaQuery(theme.breakpoints.down('md'));
 
     return (
         <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', fontFamily: 'Nunito Sans' }}>
@@ -86,9 +91,9 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
                                 <Box sx={{ position: 'relative', flex: 1, minWidth: 0, height: 35 }}>
                                     <Tooltip
                                         arrow
-                                        placement="right"
-                                        enterTouchDelay={0}        // Show instantly on tap (mobile/tablet)
-                                        leaveTouchDelay={3000}     // Stay visible for 3s after tap
+                                        placement={isMobileOrTablet ? 'top' : 'right'} // dynamic placement
+                                        enterTouchDelay={0}
+                                        leaveTouchDelay={3000}
                                         title={
                                             <Box sx={{ fontSize: '12px', fontFamily: 'Nunito Sans', color: '#333', fontWeight: 'bold' }}>
                                                 <div>
