@@ -58,15 +58,16 @@ const sampleData = [
     { month: "Dec", actual: 82000, goal: 75000 }     // 109.3%
 ];
 const yearlyData: YearlyData[] = [
-    { year: 2024, actualSum: 33000, targetSum: 45000 },
-    { year: 2023, actualSum: 48000, targetSum: 45000 },
-    { year: 2022, actualSum: 27000, targetSum: 45000 },
-    { year: 2021, actualSum: 500, targetSum: 45000 },
-    { year: 2020, actualSum: 500000, targetSum: 450000 },
-    { year: 2019, actualSum: 0, targetSum: 45000 },
-    { year: 2018, actualSum: 0, targetSum: 45000 },
-    { year: 2017, actualSum: 0, targetSum: 45000 },
+    { year: 2024, actualSum: 42000, targetSum: 45000 },  // ~93% of goal
+    { year: 2023, actualSum: 48000, targetSum: 45000 },  // ~106% of goal
+    { year: 2022, actualSum: 32000, targetSum: 45000 },  // ~71% of goal
+    { year: 2021, actualSum: 15000, targetSum: 45000 },  // ~33% of goal
+    { year: 2020, actualSum: 46000, targetSum: 46000 },  // exactly 100%
+    { year: 2019, actualSum: 38000, targetSum: 50000 },  // ~76% of goal
+    { year: 2018, actualSum: 5000,  targetSum: 20000 },  // 25% of goal
+    { year: 2017, actualSum: 0,     targetSum: 0 },      // edge case
 ];
+
 
 
 

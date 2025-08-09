@@ -54,8 +54,9 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
                 {data.length > 0 ? (
                     data.map(item => {
                         const percentage = item.targetSum > 0
-                            ? Math.round((item.actualSum / item.targetSum) * 100).toFixed(1)
-                            : '0';
+                        ? String(Math.round((item.actualSum / item.targetSum) * 100))
+                        : '0';
+                    
 
                         return (
                             <Box
@@ -83,7 +84,7 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
                                 </Typography>
 
                                 {/* Bar */}
-                                <Box sx={{ position: 'relative', flex: 1, minWidth: 0, height: 28 }}>
+                                <Box sx={{ position: 'relative', flex: 1, minWidth: 0, height: 35 }}>
                                     <Tooltip
                                         arrow
                                         placement="right"
