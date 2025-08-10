@@ -107,7 +107,7 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
                 {data.map((item) => (
                     <Box key={item.year} sx={{ display: 'flex', alignItems: 'center', mb: 1.5, gap: 1 }}>
                         {/* Year */}
-                        <Typography sx={{ width: 50, fontSize: '12px', color: '#2B303466', fontWeight: 800 }}>
+                        <Typography sx={{ width: 50, fontSize: '12px', color: '#2B303466', fontWeight: 800,fontFamily: "'Nunito Sans'" }}>
                             {item.year}
                         </Typography>
 
@@ -137,7 +137,8 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
                                             whiteSpace: 'nowrap',
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis',
-                                            px: 1
+                                            px: 1,
+                                            fontFamily: "'Nunito Sans'"
                                         }}
                                     >
                                         {`${formatCurrency(item.actualSum)} / ${formatCurrency(item.targetSum)}`}
@@ -193,7 +194,8 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
                                                 whiteSpace: 'nowrap',
                                                 overflow: 'hidden',
                                                 textOverflow: 'ellipsis',
-                                                px: 1
+                                                px: 1,
+                                                fontFamily: "'Nunito Sans'"
                                             }}
                                         >
                                             {`${formatCurrency(item.actualSum)} / ${formatCurrency(item.targetSum)}`}
