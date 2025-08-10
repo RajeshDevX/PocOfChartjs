@@ -67,11 +67,25 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
             }
         }
 
+        function handleScrollOrResize() {
+            // close popper on scroll or resize
+            if (anchorEl) {
+                setAnchorEl(null);
+                setTooltipData(null);
+            }
+        }
+
         document.addEventListener("mousedown", handleClickOutside);
+        window.addEventListener("scroll", handleScrollOrResize, true); // true = capture scroll on all elements
+        window.addEventListener("resize", handleScrollOrResize);
+
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
+            window.removeEventListener("scroll", handleScrollOrResize, true);
+            window.removeEventListener("resize", handleScrollOrResize);
         };
     }, [anchorEl]);
+
     const getBarWidth = (actual: number, goal: number) => {
         if (goal <= 0) return 0;
         return Math.min((actual / goal) * 100, 100);
