@@ -198,6 +198,10 @@ const CustomPerformanceBarChart: React.FC<Props> = ({ data }) => {
                     callback: (_: unknown, index: number) => {
                         const month = data[index].month;
                         const goal = data[index].goal;
+                
+                        if (isTablet) {
+                            return [`${month}`, `$${goal.toLocaleString()}`];
+                        }
                         return [`${month}`, `$${goal.toLocaleString()}`];
                     },
                     color: "#555555",
@@ -210,6 +214,7 @@ const CustomPerformanceBarChart: React.FC<Props> = ({ data }) => {
                     maxRotation: isTablet ? 90 : 0,
                     minRotation: isTablet ? 90 : 0,
                 },
+                
             },
         },
     };
