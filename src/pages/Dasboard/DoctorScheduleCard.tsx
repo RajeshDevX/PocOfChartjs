@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     Box,
     Avatar,
     Typography,
     IconButton,
-    Card,
-    Divider,
-    Chip,
+
     Paper,
 } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
@@ -15,38 +13,10 @@ import MyDatePicker from "./calender";
 
 
 import MyTimeline from "./MyTimeLine";
-const scheduleItems = [
-    {
-        time: '9:30',
-        period: 'am',
-        title: 'Consultation Amber Hotel',
-        status: 'Confirmed',
-        statusColor: '#4CAF50'
-    },
-    {
-        time: '10:30',
-        period: 'am',
-        title: 'Staff Meeting',
-        status: null
-    },
-    {
-        time: '11:40',
-        period: 'am',
-        title: 'Break Time',
-        status: null
-    },
-    {
-        time: '12:10',
-        period: 'pm',
-        title: 'Swetha Priya',
-        status: 'Confirmed',
-        statusColor: '#4CAF50'
-    },
 
-];
 
 const DoctorScheduleCard: React.FC = () => {
-    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+    // const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
     return (
         <Paper sx={{ borderRadius: 2, py: 2 }}>

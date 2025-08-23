@@ -1,6 +1,6 @@
 // ChatApp.tsx
 import React, { useEffect, useRef, useState } from "react";
-import io, { Socket } from "socket.io-client";
+import io from "socket.io-client";
 
 interface Message {
   user: string;
@@ -10,7 +10,7 @@ interface Message {
 }
 
 const ChatApp: React.FC = () => {
-  const [socket, setSocket] = useState<Socket | null>(null);
+  const [socket, setSocket] = useState<any | null>(null);
   const [user, setUser] = useState("");
   const [text, setText] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -18,7 +18,7 @@ const ChatApp: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const s = io("http://localhost:4000");
+    const s = io("https://poc-chat-application-production.up.railway.app");
     setSocket(s);
 
     s.on("message", (msg: Message) => {

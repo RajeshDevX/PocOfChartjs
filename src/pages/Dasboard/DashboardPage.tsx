@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
-import Table1 from "./TodaysAppointmentsTable";
-import Table2 from "./PatientRecordsTable";
+// import Table1 from "./TodaysAppointmentsTable";
+// import Table2 from "./PatientRecordsTable";
 import DoctorScheduleCard from "./DoctorScheduleCard";
 import { ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import React from "react";
