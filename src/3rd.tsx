@@ -107,7 +107,7 @@ const PreviousYearsChart: React.FC<PreviousYearsChartProps> = ({ data }) => {
                 {data.map((item) => (
                     <Box key={item.year} sx={{ display: 'flex', alignItems: 'center', mb: 1.5, gap: 1 }}>
                         {/* Year */}
-                        <Typography sx={{ width: 50, fontSize: '12px', color: '#2B303466', fontWeight: 800,fontFamily: "'Nunito Sans'" }}>
+                        <Typography sx={{ width: 50, fontSize: '12px', color: '#2B303466', fontWeight: 800, fontFamily: "'Nunito Sans'" }}>
                             {item.year}
                         </Typography>
 
